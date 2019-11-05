@@ -5,28 +5,48 @@ import 'CustomBottomNav.dart';
 
 import 'items.dart';
 
+import 'pages/SettingsPage.dart';
+import 'pages/SyncPage.dart';
+
 void main(){
   runApp(App());
 }
 class App extends StatelessWidget{
   Widget build(BuildContext ctx){
     return MaterialApp(
+      theme: ThemeData(
+        primaryColor: Colors.teal,
+        accentColor: Colors.teal,
+        buttonColor: Colors.teal,
+        fontFamily: "Montserrat"
+      ),
       title: "To-do App",
       home: InitialPage()
     );
   }
 }
 
-class InitialPage extends StatelessWidget{
+class InitialPage extends StatefulWidget{
+  InitialPageState createState() => InitialPageState();
+}
+
+class InitialPageState extends State<InitialPage>{
+  int pageIndex = 0;
+  List<Widget> pages = [
+    Home(),
+    SyncPage(),
+    SettingsPage()
+  ];
+
   Widget build(BuildContext ctx){
     return Scaffold(
       appBar: AppBar(
         title: Text("To-do App"),
       ),
       body: Center(
-        child: Home()
+        child: pages[pageIndex]
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: (pageIndex == 0) ? FloatingActionButton(
         onPressed: (){
           Navigator.of(ctx).push(MaterialPageRoute(
             builder: (BuildContext ctx){
@@ -35,7 +55,7 @@ class InitialPage extends StatelessWidget{
           ));
         },
         child: Icon(Icons.add)
-      ),
+      ) : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       bottomNavigationBar: CustomBottomNav(
         items: [
@@ -51,7 +71,14 @@ class InitialPage extends StatelessWidget{
             icon: Icon(Icons.settings),
             title: Text("Settings")
           )
-        ]
+        ],
+        onPressed: (index){
+          print(index);
+          setState(() {
+            pageIndex = index;
+          });
+        },
+        selectedIndex: pageIndex,
       )
     );
   }

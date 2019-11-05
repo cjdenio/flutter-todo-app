@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class CustomBottomNav extends StatefulWidget{
   List<BottomNavigationBarItem> items;
-  CustomBottomNav({this.items});
-  int selectedIndex = 0;
+  Function onPressed;
+  int selectedIndex;
+
+  CustomBottomNav({this.items, this.onPressed, this.selectedIndex});
 
   CustomBottomNavState createState() => CustomBottomNavState();
 }
@@ -14,9 +16,7 @@ class CustomBottomNavState extends State<CustomBottomNav>{
       items: widget.items,
       currentIndex: widget.selectedIndex,
       onTap: (index){
-        setState((){
-          widget.selectedIndex = index;
-        });
+        widget.onPressed(index);
       },
     );
   }
