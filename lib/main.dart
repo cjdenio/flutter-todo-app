@@ -15,9 +15,8 @@ class App extends StatelessWidget{
   Widget build(BuildContext ctx){
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Colors.teal,
-        accentColor: Colors.teal,
-        buttonColor: Colors.teal,
+        primaryColor: Colors.orange,
+        accentColor: Colors.orangeAccent,
         fontFamily: "Montserrat"
       ),
       title: "To-do App",
