@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
-import 'items.dart';
 
-class NewItemPage extends StatelessWidget{
-  Widget build(BuildContext ctx){
+class NewItemPage{
+  static void show(Function callback, BuildContext ctx){
+    Navigator.of(ctx).push(MaterialPageRoute(
+      builder: (ctx2){
+        return build(ctx2, callback);
+      }
+    ));
+  }
+
+  static Widget build(BuildContext ctx, Function callback){
     TextEditingController controller = TextEditingController();
 
     TextField textField = TextField(
@@ -35,10 +42,7 @@ class NewItemPage extends StatelessWidget{
                 ),
                 RaisedButton(
                   onPressed: (){
-                    items.add({
-                      "name": controller.text,
-                      "finished": false
-                    });
+                    callback(controller.text);
                     
                     Navigator.of(ctx).pop();
                   },
